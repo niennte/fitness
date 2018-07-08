@@ -1,0 +1,16 @@
+<div class="signIn">
+  <h3>Header: </h3>
+  <p>
+    <%= link_to 'Home', root_path %>
+    <%  if user_signed_in? %>
+        Welcome <%=  current_user.email %> |
+        <%= link_to 'Account', edit_user_registration_path %> |
+        <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+    <% else %>
+        <%= link_to 'Sign in', new_user_session_path %>
+        |
+        <%= link_to 'Sign up', new_user_registration_path %>
+    <% end %>
+  </p>
+</div>
+<hr />
