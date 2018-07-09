@@ -1,16 +1,41 @@
-<div class="signIn">
-  <h3>Header: </h3>
-  <p>
-    <%= link_to 'Home', root_path %>
-    <%  if user_signed_in? %>
-        Welcome <%=  current_user.email %> |
-        <%= link_to 'Account', edit_user_registration_path %> |
-        <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-    <% else %>
-        <%= link_to 'Sign in', new_user_session_path %>
-        |
-        <%= link_to 'Sign up', new_user_registration_path %>
-    <% end %>
-  </p>
-</div>
-<hr />
+<!-- Navigation -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-3" id="topbar">
+  <div class="container my-0 py-0">
+    <a class="navbar-brand text-expanded font-weight-bold d-md-none" href="#">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav scrollNav">
+        <li class="nav-item pr-lg-5">
+          <%= link_to root_path, :class => "nav-link text-expanded" do %>
+              <%= content_tag :span, "Home", :class => "logoLink" %>
+              <%= content_tag :span, "(current)", :class => "sr-only" %>
+          <% end %>
+        </li>
+        <!--<li class="nav-item px-lg-5">-->
+          <!--<a class="nav-link text-expanded" href="/#about">About-->
+          <!--</a>-->
+        <!--</li>-->
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <%  if user_signed_in? %>
+          <li class="nav-item pl-lg-5">
+            <%= link_to current_user.email, edit_user_registration_path, :class => "nav-link text-expanded" %>
+          </li>
+          <li class="nav-item pl-lg-5">
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "nav-link text-expanded" %>
+          </li>
+        <% else %>
+          <li class="nav-item pl-lg-5">
+            <%= link_to 'Sign in', new_user_session_path, :class => "btn btn-secondary" %>
+          </li>
+          <li class="nav-item pl-lg-5">
+            <%= link_to 'Sign up', new_user_registration_path, :class => "nav-link text-expanded" %>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
