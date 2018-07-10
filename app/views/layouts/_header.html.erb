@@ -21,7 +21,7 @@
       <ul class="navbar-nav ml-auto">
         <%  if user_signed_in? %>
           <li class="nav-item pl-lg-5">
-            <%= link_to current_user.email, edit_user_registration_path, :class => "nav-link text-expanded" %>
+            <%= link_to 'Signed in as ' + current_user.name, edit_user_registration_path, :class => "nav-link text-expanded" %>
           </li>
           <li class="nav-item pl-lg-5">
             <%= link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "nav-link text-expanded" %>
