@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<h1>Activity Record</h1>
+
+<section class="py-5">
+  <p>
+    <strong>User:</strong>
+    <%= @activity.user.name %>
+  </p>
+
+  <p>
+    <strong>Activity type:</strong>
+    <%= @activity.activity_type.titleize %>
+  </p>
+
+  <p>
+    <strong>Activity date:</strong>
+    <%= @activity.activity_date %>
+  </p>
+
+  <p>
+    <strong>Duration:</strong>
+    <%= "#{@activity.duration/60}h #{@activity.duration % 60}min" %>
+  </p>
+</section>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

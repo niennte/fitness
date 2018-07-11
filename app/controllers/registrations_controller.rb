@@ -1,5 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  protected
+
+  # redirect to activities after an account update
+  def after_update_path_for(resource)
+    activities_path
+  end
+
   private
 
   def sign_up_params

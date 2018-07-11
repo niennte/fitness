@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  activity_type: 1
+  activity_date: 2018-07-11
+  duration: 1
+
+two:
+  user: two
+  activity_type: 1
+  activity_date: 2018-07-11
+  duration: 1
