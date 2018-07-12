@@ -9,9 +9,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %>">
     <%= render 'layouts/header' %>
-    <main class="text-center pb-3">
+    <main>
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
