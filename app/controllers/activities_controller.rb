@@ -1,16 +1,24 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
-  before_action :require_author, only: [:edit, :update, :destroy]
+  before_action :require_ownership, only: [:edit, :update, :destroy]
+  before_action :require_authorization, only: [:index, :summary, :show]
 
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.where(user_id: current_user.id)
+    @activities = Activity.forUser(current_user.id)
+  end
+
+  # GET /summary
+  # GET /summary.json
+  def summary
+    @summary = CreateActivitySummaryForUser.new(current_user.id)
   end
 
   # GET /activities/1
   # GET /activities/1.json
   def show
+    raise ApplicationController::NotAuthorized unless @activity.user == current_user
   end
 
   # GET /activities/new
@@ -69,8 +77,12 @@ class ActivitiesController < ApplicationController
       @activity = Activity.find(params[:id])
     end
 
-  def require_author
-    redirect_to(root_path) unless @activity.user == current_user
+  def require_authorization
+      redirect_to(user_session_path) unless user_signed_in?
+  end
+
+  def require_ownership
+    raise ApplicationController::NotAuthorized unless @activity.user == current_user
   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
