@@ -5,7 +5,13 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.where(user_id: current_user.id)
+    @activities = Activity.forUser(current_user.id)
+  end
+
+  # GET /summary
+  # GET /summary.json
+  def summary
+    @summary = ActivitySummary.new(current_user.id)
   end
 
   # GET /activities/1

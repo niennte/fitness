@@ -6,6 +6,8 @@ class Activity < ApplicationRecord
 
   enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :inline_skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
+  scope :weekly, -> { where('activity_date >= ?', Date.current.beginning_of_week) }
+  scope :forUser, -> (userId ) { where('user_id = ?', userId) }
 
   validates :activity_type, inclusion: { in: activity_types,
                                 message: "%{value} is not a valid activity" }

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Summary</h1>
+<p><%= current_user.name %>'s activities, week <%= Date.current.beginning_of_week %> - <%= Date.current.end_of_week %></p>
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <th>Activity</th>
+    <th>Total per week</th>
+  </thead>
+<% @summary.totals_by_type.each do |activity| %>
+    <tr>
+      <td><%= activity[0].titleize %></td>
+      <td><%= "#{activity[1] / 60}h #{activity[1] % 60}min" %></td>
+    </tr>
+<% end %>
+  <tr class="table-secondary font-weight-bold">
+    <td>All activities</td>
+    <td><%= "#{@summary.total / 60}h #{@summary.total % 60}m" %></td>
+  </tr>
+</table>

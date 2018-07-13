@@ -7,25 +7,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav scrollNav">
-        <%  if user_signed_in? %>
+        <% if user_signed_in? %>
             <li class="nav-item pr-lg-5">
               <%= link_to activities_path, :class => "nav-link text-expanded" do %>
                   <%= content_tag :span, "Your activities", :class => "logoLink" %>
                   <%= content_tag :span, "(current)", :class => "sr-only" %>
               <% end %>
-        </li>
-            <% else %>
-        <li class="nav-item pr-lg-5">
-          <%= link_to root_path, :class => "nav-link text-expanded" do %>
-              <%= content_tag :span, "Home", :class => "logoLink" %>
-              <%= content_tag :span, "(current)", :class => "sr-only" %>
-          <% end %>
-          <% end %>
-        </li>
-        <!--<li class="nav-item px-lg-5">-->
-          <!--<a class="nav-link text-expanded" href="/#about">About-->
-          <!--</a>-->
-        <!--</li>-->
+            </li>
+            <li class="nav-item pr-lg-5">
+              <%= link_to summary_path, :class => "nav-link text-expanded" do %>
+                  <%= content_tag :span, "Summary" %>
+              <% end %>
+            </li>
+        <% else %>
+          <li class="nav-item pr-lg-5">
+            <%= link_to root_path, :class => "nav-link text-expanded" do %>
+                <%= content_tag :span, "Home", :class => "logoLink" %>
+                <%= content_tag :span, "(current)", :class => "sr-only" %>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
       <ul class="navbar-nav ml-auto">
         <%  if user_signed_in? %>
