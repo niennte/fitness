@@ -1,8 +1,13 @@
-class ActivitySummary
+class CreateActivitySummaryForUser
 
   attr_reader :total, :totals_by_type
 
   def initialize(current_user_id)
+    calculate_total(current_user_id)
+    calculate_totals_by_type(current_user_id)
+  end
+
+  def generate(current_user_id)
     calculate_total(current_user_id)
     calculate_totals_by_type(current_user_id)
   end
