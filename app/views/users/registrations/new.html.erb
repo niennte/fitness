@@ -1,34 +1,68 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+<div id="alert" class="text-center <%= alert.present? ? 'alert alert-warning' : ''%>" role="alert"><%= alert %></div>
+<% if resource.errors.any? %>
+    <div class="alert alert-warning text-center" role="alert">
+      Coudn't create account.
+    </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<section class="pt-5 pb-3 d-flex justify-content-center">
+  <div>
+    <div class="card position-relative" style="width: 25rem;">
+      <div class="card-body">
+        <%= link_to "Sign in", new_session_path(resource_name), :class => "card-link position-absolute form-auxiliary-link" %>
+        <h3 class="card-title text-center pb-2 text-primary">Sign up</h3>
+        <hr class="mb-0">
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+            <% if resource.errors.any? %>
+                <div id="error_explanation" class="alert alert-warning text-center" role="alert">
+                  <p>Please correct <%= pluralize(resource.errors.count, "error") %>:</p>
+
+                  <ul class="text-left pl-5">
+                    <% resource.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+
+
+          <div class="field form-group mt-3 <%= (resource.errors.include? :name) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :name %>
+            <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
+          </div>
+
+          <div class="field form-group <%= (resource.errors.include? :email) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+          </div>
+
+          <div class="field form-group <%= (resource.errors.include? :password) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+          </div>
+
+          <div class="field form-group <%= (resource.errors.include? :password_confirmation) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "Sign up", :class => "btn btn-lg btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <nav class="nav justify-content-center mt-5">
+      <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+          <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+      <% end -%>
+    </nav>
+  </div>
+</section>
+

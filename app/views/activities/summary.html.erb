@@ -1,21 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div id="notice" class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
+<section class="py-5 container">
 
-<h1>Summary</h1>
-<p><%= current_user.name %>'s activities, week <%= Date.current.beginning_of_week %> - <%= Date.current.end_of_week %></p>
+  <h1 class="text-center">Summary</h1>
+  <p class="text-center">week <%= Date.current.beginning_of_week %> - <%= Date.current.end_of_week %></p>
 
-<table class="table table-hover">
-  <thead class="thead-light">
+  <table class="table table-bordered">
+    <thead class="thead-light">
     <th>Activity</th>
     <th>Total per week</th>
-  </thead>
-<% @summary.totals_by_type.each do |activity| %>
-    <tr>
-      <td><%= activity[0].titleize %></td>
-      <td><%= "#{activity[1] / 60}h #{activity[1] % 60}min" %></td>
+    </thead>
+    <% @summary.totals_by_type.each do |activity| %>
+        <tr>
+          <td><%= activity[0].titleize %></td>
+          <td><%= "#{activity[1] / 60}h #{activity[1] % 60}min" %></td>
+        </tr>
+    <% end %>
+    <tr class="table-secondary font-weight-bold">
+      <td>All activities</td>
+      <td><%= "#{@summary.total / 60}h #{@summary.total % 60}m" %></td>
     </tr>
-<% end %>
-  <tr class="table-secondary font-weight-bold">
-    <td>All activities</td>
-    <td><%= "#{@summary.total / 60}h #{@summary.total % 60}m" %></td>
-  </tr>
-</table>
+  </table>
+
+  <nav class="nav justify-content-center">
+    <%= link_to 'Activities', activities_path, :class => "nav-item nav-link" %>
+  </nav>
+
+</section>

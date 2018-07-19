@@ -1,7 +1,7 @@
 <%= form_with(model: activity, local: true) do |form| %>
   <% if activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+    <div id="error_explanation" class="alert alert-warning text-center" role="alert">
+      <p>Please correct <%= pluralize(activity.errors.count, "error") %>:</p>
 
       <ul>
       <% activity.errors.full_messages.each do |message| %>
@@ -10,24 +10,25 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="field form-group <%= (activity.errors.include? :activity_type) ? 'has-errors alert alert-danger' : '' %>">
     <%= form.label :activity_type %>
     <%= form.select :activity_type, Activity.activity_types.keys.map {|activity_type| [activity_type.titleize,activity_type]} %>
   </div>
 
-  <div class="field">
+  <div class="field form-group <%= (activity.errors.include? :activity_date) ? 'has-errors alert alert-danger' : '' %>">
     <%= form.label :activity_date %>
     <%= form.date_select :activity_date %>
   </div>
 
-  <div class="field">
+  <div class="field form-group duration <%= (activity.errors.include? :duration) ? 'has-errors alert alert-danger' : '' %>">
     <%= form.label :hours %>
-    <%= form.number_field :hours%>
+    <%= form.number_field :hours %>
     <%= form.label :minutes %>
     <%= form.number_field :minutes%>
   </div>
 
-  <div class="actions py-3">
+  <div class="actions py-3 text-center">
     <%= form.submit "Save activity", :class => "btn btn-secondary" %>
   </div>
 <% end %>
+

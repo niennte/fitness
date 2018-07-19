@@ -1,8 +1,19 @@
-<p id="notice"><%= notice %></p>
-<h1>New Activity</h1>
+<div id="notice" class="<%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
+<% if @activity.errors.any? %>
+    <div class="alert alert-warning text-center" role="alert">
+      Coudn't save activity.
+    </div>
+<% end %>
+<section class="py-5 d-flex justify-content-center">
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h3 class="card-title text-center pb-2">New Activity</h3>
 
-<section class="py-5">
-<%= render 'form', activity: @activity %>
+        <%= render 'form', activity: @activity %>
+
+      <nav class="nav justify-content-center">
+        <%= link_to 'View All', activities_path, :class => "nav-item nav-link" %>
+      </nav>
+    </div>
+  </div>
 </section>
-
-<%= link_to 'Back', activities_path %>

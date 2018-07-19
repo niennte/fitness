@@ -1,0 +1,189 @@
+
+/* *******
+CUSTOM STYLES
+* *********/
+
+/* Theme tweaks */
+::selection {
+  color: $gray-800;
+  background: $neon-green;
+}
+
+.navbar .nav-link.preRegister:focus {
+  outline: none !important;
+  box-shadow: 0 0 1px $neon-fuchsia, 0 0 10px $neon-fuchsia;
+}
+
+/* Typography tweaks */
+
+/* Thin out the headings */
+.slender-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+
+/* Colors */
+
+.neon-fuchsia {
+  color: $neon-fuchsia;
+}
+
+.neon-pink {
+  color: $neon-pink;
+}
+
+.neon-green {
+  color: $neon-green;
+}
+
+.neon-teal {
+  color: $neon-teal;
+}
+
+.neon-white {
+  color: $neon-white;
+}
+
+.neon-dark {
+  color: $neon-dark;
+}
+
+
+/* Header section */
+
+.jumbotron small {
+  font-weight: 200;
+}
+
+.jumbotron .callout {
+  font-size: 100%;
+}
+
+.jumbotron .lead {
+  color: #bbb;
+}
+
+@media (min-width: 768px) {
+  .min-100 {
+    min-height: 66vh;
+  }
+}
+
+/* Sticky navs - needs JS polyfill */
+
+.stickies {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.stickies.sideMenu {
+  top: 33%;
+}
+
+.stickies.topMenu {
+  top: 0;
+}
+
+
+/* Links overrides */
+a {
+  color: $neon-mild-gray;
+  transition: all .5s ease;
+}
+
+/* Nav overrides*/
+
+.navbar a:hover {
+  color: #fff !important;
+}
+
+.bg-dark {
+  background: $neon-dark !important;
+}
+
+
+/* Footer section */
+.footer {
+  color: $neon-white;
+}
+
+.footer a {
+  color: #70726F;
+  padding: 10px;
+  transition: all .5s ease;
+}
+
+.footer .social-media a {
+  font-size: 4rem;
+}
+
+.footer a:hover {
+  color: $neon-white;
+}
+
+
+
+
+/* Side menu */
+
+.sideMenu .list-group {
+  width: 100%;
+}
+
+.sideMenu {
+  font-size: 150%;
+}
+
+.sideMenu .list-group .list-group-item .nav-link:hover {
+  background: #fafafa;
+  color: $neon-mild-gray;
+  font-weight: 600;
+}
+
+.sideMenu .nav-link.active {
+  background: #fafafa;
+  box-shadow: -6px 0 0 $neon-green inset;
+  color: $neon-mild-gray;
+  font-weight: 600;
+}
+
+
+
+/* Schedule section */
+
+.card-body {
+  position: relative;
+}
+
+.screen {
+  position: absolute;
+  z-index: 10;
+  right:0;
+  top: 0;
+}
+
+
+
+
+/* Responsive type */
+
+.slender-heading.textSizeMedium {
+  font-size: 150%;
+}
+
+@media (min-width: 40em) {
+  .slender-heading {
+    font-size: 50px;
+  }
+
+  .slender-heading.textSizeMedium {
+    font-size: 175%;
+  }
+}
+
+@media (min-width: 62em) {
+  .slender-heading {
+  }
+}

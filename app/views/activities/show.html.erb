@@ -1,27 +1,31 @@
-<p id="notice"><%= notice %></p>
-<h1>Activity Record</h1>
+<div id="notice" class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
+<section class="py-5 d-flex justify-content-center">
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h3 class="card-title text-center pb-2">Activity Log</h3>
 
-<section class="py-5">
-  <p>
-    <strong>User:</strong>
-    <%= @activity.user.name %>
-  </p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Activity type:</strong>
+          <%= @activity.activity_type.titleize %>
+        </li>
+        <li class="list-group-item">
+          <strong>Activity date:</strong>
+          <%= @activity.activity_date %>
+        </li>
+        <li class="list-group-item">
+          <strong>Duration:</strong>
+          <%= "#{@activity.hours}h #{@activity.minutes}min" %>
+        </li>
+      </ul>
 
-  <p>
-    <strong>Activity type:</strong>
-    <%= @activity.activity_type.titleize %>
-  </p>
+      <nav class="nav justify-content-center mt-4">
+        <%= link_to 'Edit', edit_activity_path(@activity), :class => "item nav-link border-right" %>
+        <%= link_to 'View All', activities_path, :class => "nav-item nav-link" %>
+        <%= link_to 'Delete', @activity, method: :delete, data: { confirm: 'Are you sure?' }, :class => "item nav-link border-left"%>
+      </nav>
 
-  <p>
-    <strong>Activity date:</strong>
-    <%= @activity.activity_date %>
-  </p>
+    </div>
 
-  <p>
-    <strong>Duration:</strong>
-    <%= "#{@activity.hours}h #{@activity.minutes}min" %>
-  </p>
+  </div>
 </section>
-
-<%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>

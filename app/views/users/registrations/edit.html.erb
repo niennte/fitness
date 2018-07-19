@@ -1,48 +1,102 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+<div id="alert" class="text-center <%= alert.present? ? 'alert alert-warning' : ''%>" role="alert"><%= alert %></div>
+<% if resource.errors.any? %>
+    <div class="alert alert-warning text-center" role="alert">
+      Coudn't save account changes.
+    </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<section class="pt-5 pb-3 d-flex justify-content-center">
+  <div style="max-width: 32rem; width:100%;">
+    <div class="card position-relative" >
+      <div class="card-body">
+        <h3 class="card-title text-center pb-2 text-dark">Edit account</h3>
+        <hr class="mb-0">
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <% if resource.errors.any? %>
+              <div id="error_explanation" class="alert alert-warning text-center" role="alert">
+                <p>Please correct <%= pluralize(resource.errors.count, "error") %>:</p>
 
-<%= link_to "Back", :back %>
+                <ul class="text-left pl-5">
+                  <% resource.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="field form-group mt-3 row <%= (resource.errors.include? :name) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :name, :class => "col-sm-4" %><br />
+            <div class="col-sm-8">
+            <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="field form-group row <%= (resource.errors.include? :email) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :email, :class => "col-sm-4" %><br />
+            <div class="col-sm-8">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="field form-group row <%= (resource.errors.include? :password) ? 'has-errors alert alert-danger' : '' %>">
+            <div class="col-sm-4">
+              <%= f.label :password, :class=> "mb-0" %>
+              <% if @minimum_password_length %>
+                  <small class="form-text mb-2"><%= @minimum_password_length %> characters minimum</small>
+              <% end %>
+            </div>
+
+            <div class="col-sm-8">
+              <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+              <small class="form-text">Leave blank if you don't want to change it</small>
+            </div>
+
+          </div>
+
+          <div class="field form-group row <%= (resource.errors.include? :password_confirmation) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :password_confirmation, :class => "col-sm-4" %>
+            <div class="col-sm-8">
+            <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
+              <small class="form-text">Leave blank if you don't want to change it</small>
+            </div>
+          </div>
+
+          <hr>
+          <div class="field form-group text-center <%= (resource.errors.include? :current_password) ? 'has-errors alert alert-danger' : '' %>">
+            <%= f.label :current_password, :class => "font-weight-bold text-primary mb-0" %>
+            <%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %>
+            <small class="form-text mb-2 text-primary">We need your current password to confirm your changes</small>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "Update", :class => "btn btn-lg btn-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card position-relative mt-5">
+      <div class="card-body">
+        <h3 class="card-title text-center pb-2 text-dark">Cancel my account</h3>
+        <hr class="mb-0">
+
+        <p class="mt-3 text-center">
+          Unhappy?
+        </p>
+        <div class="actions text-center">
+          <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => "btn btn-lg btn-secondary" %>
+        </div>
+      </div>
+    </div>
+
+
+    <nav class="nav justify-content-center mt-4">
+      <%= link_to 'Activities', activities_path, :class => "nav-item nav-link" %>
+      <%= link_to 'Summary', summary_path, :class => "nav-item nav-link" %>
+    </nav>
+  </div>
+</section>

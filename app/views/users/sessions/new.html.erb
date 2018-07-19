@@ -1,26 +1,54 @@
-<h2>Log in</h2>
+<div id="alert" class="text-center <%= alert.present? ? 'alert alert-warning' : ''%>" role="alert"><%= alert %></div>
+<div class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<section class="pt-5 pb-3 d-flex justify-content-center">
+  <div>
+    <div class="card position-relative" style="width: 25rem;">
+      <div class="card-body">
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+            <%= link_to "Sign up", new_registration_path(resource_name), :class => "card-link position-absolute form-auxiliary-link" %>
+        <% end -%>
+        <h3 class="card-title text-center pb-2 text-primary">Sign in</h3>
+        <hr>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field form-group row">
+              <%= f.label :email, :class => "col-sm-4 col-form-label" %>
+              <div class="col-sm-8">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+            <div class="field form-group row">
+              <%= f.label :password, :class => "col-sm-4 col-form-label" %><br />
+              <div class="col-sm-8">
+                <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+                <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                    <%= link_to "Forgot password?", new_password_path(resource_name), :class => "form-text card-link pl-3" %>
+                <% end -%>
+              </div>
+            </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+            <div class="actions form-group row">
+              <div class="col-sm-8 ml-auto">
+                <%= f.submit "Sign in", :class => "btn btn-lg btn-primary" %>
+              </div>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+                <div class="field col-sm-8 ml-auto form-check mt-4">
+                  <%= f.check_box :remember_me, :class => "form-check-input" %>
+                  <%= f.label :remember_me, :class => "form-check-label" %>
+                </div>
+            <% end -%>
+          <% end %>
+      </div>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <nav class="nav justify-content-center mt-5">
+      <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+          <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+      <% end -%>
+    </nav>
   </div>
-<% end %>
 
-<%= render "users/shared/links" %>
+</section>
