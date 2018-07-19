@@ -5,7 +5,7 @@
     </div>
 <% end %>
 
-<section class="pt-5 pb-3 d-flex justify-content-center">
+<section class="pt-5 pb-3 container d-flex justify-content-end">
   <div>
     <div class="card position-relative" style="width: 25rem;">
       <div class="card-body">
@@ -60,7 +60,7 @@
 
     <nav class="nav justify-content-center mt-5">
       <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-          <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+          <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), :class => "badge badge-light" %><br />
       <% end -%>
     </nav>
   </div>

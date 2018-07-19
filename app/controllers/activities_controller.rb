@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.forUser(current_user.id)
+    @activities = Activity.weekly.forUser(current_user.id)
   end
 
   # GET /summary

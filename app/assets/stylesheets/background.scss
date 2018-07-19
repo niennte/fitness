@@ -1,0 +1,46 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Hack to remove shuttestock writing from mock-up -1
+main {
+  padding-bottom: 100px;
+}
+// Hack to remove shuttestock writing from mock-up -2
+footer.footer {
+  margin-top: -100px;
+}
+
+
+.welcome {
+  .jumbotron {
+    background: url('https://image.shutterstock.com/z/stock-photo-young-fitness-woman-runner-running-on-road-469346675.jpg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+}
+
+.sessions, .registrations, .passwords, .unlocks {
+  main {
+    background: url('https://image.shutterstock.com/z/stock-photo-spring-time-and-red-shoes-on-desk-178978046.jpg');
+    background-size:cover;
+    background-position: center 60%;
+  }
+
+  .badge {
+    padding-top: 7px;
+  }
+}
+
+
+.activities {
+  table {
+
+    nav {
+      i {
+        font-size: 150%;
+        padding: 6px 0;
+      }
+    }
+  }
+}

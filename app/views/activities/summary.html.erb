@@ -2,7 +2,7 @@
 <section class="py-5 container">
 
   <h1 class="text-center">Summary</h1>
-  <p class="text-center">week <%= Date.current.beginning_of_week %> - <%= Date.current.end_of_week %></p>
+  <p class="text-center"><%= Date.current.beginning_of_week.strftime("%B %d, %Y") %> - <%= Date.current.end_of_week.strftime("%B %d, %Y") %></p>
 
   <table class="table table-bordered">
     <thead class="thead-light">
