@@ -6,7 +6,7 @@ class Activity < ApplicationRecord
 
   enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
-  scope :ofWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date < ?', date.end_of_week) }
+  scope :ofWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date <= ?', date.end_of_week) }
   scope :forUser, -> (userId ) { where('user_id = ?', userId) }
 
   validates :activity_type, inclusion: { in: activity_types,

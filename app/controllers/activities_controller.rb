@@ -6,20 +6,21 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-
-    weeks_ago = params[:weeks_ago] || 0
-    date = Date.current.weeks_ago(weeks_ago)
-
+    @weeks_ago = params[:weeks_ago].to_i || 0
+    date = Date.current.weeks_ago(@weeks_ago)
     @activities = Activity
       .all
       .ofWeek(date: date)
       .forUser(current_user.id)
+      .order('activity_date asc')
   end
 
   # GET /summary
   # GET /summary.json
   def summary
-    @summary = Activity.summary(user: current_user, date: Date.current)
+    @weeks_ago = params[:weeks_ago].to_i || 0
+    date = Date.current.weeks_ago(@weeks_ago)
+    @summary = Activity.summary(user: current_user, date: date)
   end
 
   # GET /activities/1
