@@ -19,12 +19,12 @@ class Activity < ApplicationRecord
   def self.summary(user: user_for_summary, date: Date.current)
     {
       total:
-        forUser(user)
-        .ofWeek(date: date)
+        forUser(user)\
+        #.ofWeek(date: date)
         .sum(:duration),
       totals_by_type:
-        forUser(user)
-        .ofWeek(date: date)
+        forUser(user)\
+        #.ofWeek(date: date)
         .group(:activity_type)
         .order('sum_duration desc')
         .sum(:duration)

@@ -9,8 +9,8 @@ class ActivitiesController < ApplicationController
     @weeks_ago = params[:weeks_ago].to_i || 0
     date = Date.current.weeks_ago(@weeks_ago)
     @activities = Activity
-      .all
-      .ofWeek(date: date)
+      .all\
+      #.ofWeek(date: date)
       .forUser(current_user.id)
       .order('activity_date asc')
   end

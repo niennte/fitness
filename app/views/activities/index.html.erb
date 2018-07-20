@@ -2,23 +2,23 @@
 <section class="py-5 container">
   <h1 class="text-center">Activities</h1>
 
-  <p class="text-center">
-    <%= Date.current.weeks_ago(@weeks_ago).beginning_of_week.strftime("%a, %d %b  %Y") %> - <%= Date.current.weeks_ago(@weeks_ago).end_of_week.strftime("%a, %d %b %Y") %>
-  </p>
+  <!--<p class="text-center">-->
+    <!--<%= Date.current.weeks_ago(@weeks_ago).beginning_of_week.strftime("%a, %d %b  %Y") %> - <%= Date.current.weeks_ago(@weeks_ago).end_of_week.strftime("%a, %d %b %Y") %>-->
+  <!--</p>-->
 
-  <nav aria-label="by week pagination" class="nav justify-content-center">
-    <ul class="pagination">
-      <li class="page-item <%= (@weeks_ago == 2)? "active" : "" %>">
-        <%= link_to '2 weeks ago', activities_path(:weeks_ago => 2), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 1)? "active" : "" %>">
-        <%= link_to 'Last week', activities_path(:weeks_ago => 1), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 0)? "active" : "" %>">
-        <%= link_to 'This week', activities_path, :class => "page-link" %>
-      </li>
-    </ul>
-  </nav>
+  <!--<nav aria-label="by week pagination" class="nav justify-content-center">-->
+    <!--<ul class="pagination">-->
+      <!--<li class="page-item <%= (@weeks_ago == 2)? "active" : "" %>">-->
+        <!--<%= link_to '2 weeks ago', activities_path(:weeks_ago => 2), :class => "page-link" %>-->
+      <!--</li>-->
+      <!--<li class="page-item <%= (@weeks_ago == 1)? "active" : "" %>">-->
+        <!--<%= link_to 'Last week', activities_path(:weeks_ago => 1), :class => "page-link" %>-->
+      <!--</li>-->
+      <!--<li class="page-item <%= (@weeks_ago == 0)? "active" : "" %>">-->
+        <!--<%= link_to 'This week', activities_path, :class => "page-link" %>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</nav>-->
 
   <table class="table table-bordered">
     <thead class="thead-light">
