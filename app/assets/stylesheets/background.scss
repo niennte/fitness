@@ -1,30 +1,74 @@
-// Place all the styles related to the welcome controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 
-// Hack to remove shuttestock writing from mock-up -1
+// Hack to remove shuttestock comp writing from the mock-up
 main {
   padding-bottom: 100px;
 }
-// Hack to remove shuttestock writing from mock-up -2
 footer.footer {
   margin-top: -100px;
+  position: relative;
+}
+
+
+// Add background overlays
+main {
+  position: relative;
+}
+
+
+main::before,
+main::after {
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+main::before {
+  z-index: -2;
+}
+
+
+main::after {
+  background: linear-gradient(-45deg,
+          transparent 25%, $neon-green 0, $neon-green 50%,
+          transparent 0, transparent 75%, $neon-green 0);
+  background-size: 5px 5px;
+  opacity: 0.3;
 }
 
 
 .welcome {
+
   .jumbotron {
+    background: transparent;
+  }
+
+  main::before {
     background: url('https://image.shutterstock.com/z/stock-photo-young-fitness-woman-runner-running-on-road-469346675.jpg');
     background-size: cover;
     background-position: center 30%;
   }
 }
 
+
 .sessions, .registrations, .passwords, .unlocks {
-  main {
+
+  main::before {
     background: url('https://image.shutterstock.com/z/stock-photo-spring-time-and-red-shoes-on-desk-178978046.jpg');
     background-size:cover;
     background-position: center 60%;
+  }
+
+  main::after {
+    background: linear-gradient(-45deg,
+            transparent 25%, $neon-fuchsia 0, $neon-fuchsia 50%,
+            transparent 0, transparent 75%, $neon-fuchsia 0);
+    background-size: 5px 5px;
+    opacity: 0.3;
   }
 
   .badge {
@@ -32,9 +76,10 @@ footer.footer {
   }
 }
 
-
 .activities {
+
   table {
+    background-color: white;
 
     nav {
       i {
@@ -42,5 +87,17 @@ footer.footer {
         padding: 6px 0;
       }
     }
+
   }
+
+
+  main::after {
+
+    background: linear-gradient(-45deg,
+            transparent 25%, $neon-teal 0, $neon-teal 50%,
+            transparent 0, transparent 75%, $neon-teal 0);
+    background-size: 5px 5px;
+    opacity: 0.1;
+  }
+
 }
