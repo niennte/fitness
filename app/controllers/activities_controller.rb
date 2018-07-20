@@ -6,18 +6,29 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.weekly.forUser(current_user.id)
+
+    weeks_ago = params[:weeks_ago] || 0
+    date = Date.current.weeks_ago(weeks_ago)
+
+    @activities = Activity
+      .all
+      .ofWeek(date: date)
+      .forUser(current_user.id)
   end
 
   # GET /summary
   # GET /summary.json
   def summary
-    @summary = CreateActivitySummaryForUser.new(current_user.id)
+    @summary = Activity.summary(user: current_user, date: Date.current)
   end
 
   # GET /activities/1
   # GET /activities/1.json
   def show
+    # I want links to individual records bookmarkable
+    # and available via login splash
+    # so the auth error should only be raised
+    # after the login if the user is wrong
     raise ApplicationController::NotAuthorized unless @activity.user == current_user
   end
 

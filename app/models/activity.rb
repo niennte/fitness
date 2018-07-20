@@ -4,15 +4,32 @@ class Activity < ApplicationRecord
   before_validation :duration_to_minutes
   after_find :duration_to_hours_and_minutes
 
-  enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :inline_skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
+  enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
-  scope :weekly, -> { where('activity_date >= ?', Date.current.beginning_of_week) }
+  scope :ofWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date < ?', date.end_of_week) }
   scope :forUser, -> (userId ) { where('user_id = ?', userId) }
 
   validates :activity_type, inclusion: { in: activity_types,
                                 message: "%{value} is not a valid activity" }
   validates :duration, numericality: {greater_than: 0, :message => 'needs to be at least 1 minute'}
   validate :activity_date_valid_range
+
+  # user_for_summary is a stub
+  # to communicate the parameter is required
+  def self.summary(user: user_for_summary, date: Date.current)
+    {
+      total:
+        forUser(user)
+        .ofWeek(date: date)
+        .sum(:duration),
+      totals_by_type:
+        forUser(user)
+        .ofWeek(date: date)
+        .group(:activity_type)
+        .order('sum_duration desc')
+        .sum(:duration)
+    }
+  end
 
   private
 

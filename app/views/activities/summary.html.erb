@@ -9,7 +9,7 @@
     <th>Activity</th>
     <th>Total per week</th>
     </thead>
-    <% @summary.totals_by_type.each do |activity| %>
+    <% @summary[:totals_by_type].each do |activity| %>
         <tr>
           <td><%= activity[0].titleize %></td>
           <td><%= "#{activity[1] / 60}h #{activity[1] % 60}min" %></td>
@@ -17,7 +17,7 @@
     <% end %>
     <tr class="table-secondary font-weight-bold">
       <td>All activities</td>
-      <td><%= "#{@summary.total / 60}h #{@summary.total % 60}m" %></td>
+      <td><%= "#{@summary[:total] / 60}h #{@summary[:total] % 60}m" %></td>
     </tr>
   </table>
 
