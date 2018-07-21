@@ -1,0 +1,35 @@
+<table class="table table-bordered">
+  <thead class="thead-light">
+  <tr>
+    <th>Activity type</th>
+    <th>Activity date</th>
+    <th>Duration</th>
+    <th class="text-center">
+      <%= link_to 'New', new_activity_path, :class => "btn btn-secondary"  %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% activities.each do |activity| %>
+      <tr>
+        <td><%= activity.activity_type.titleize %></td>
+        <td><%= render_date(activity.activity_date) %></td>
+        <td><%= render_timespan(activity.duration) %></td>
+        <td>
+          <nav class="nav justify-content-around">
+            <%= link_to activity, :class => "item nav-link btn btn-light rounded-circle" do %>
+                <i class="fa fa-eye"></i>
+            <% end %>
+            <%= link_to edit_activity_path(activity), :class => "item nav-link  btn btn-light rounded-circle" do %>
+                <i class="fa fa-edit"></i>
+            <% end %>
+            <%= link_to activity, method: :delete, data: { confirm: 'Are you sure?' }, :class => "item nav-link btn btn-light rounded-circle" do %>
+                <i class="fa fa-times"></i>
+            <% end %>
+          </nav>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -2,22 +2,8 @@
 <section class="py-5 container">
 
   <h1 class="text-center">Summary</h1>
-  <p class="text-center">
-    <%= Date.current.weeks_ago(@weeks_ago).beginning_of_week.strftime("%a, %d %b  %Y") %> - <%= Date.current.weeks_ago(@weeks_ago).end_of_week.strftime("%a, %d %b %Y") %>
-  </p>
-  <nav aria-label="by week pagination" class="nav justify-content-center">
-    <ul class="pagination">
-      <li class="page-item <%= (@weeks_ago == 2)? "active" : "" %>">
-        <%= link_to '2 weeks ago', summary_path(:weeks_ago => 2), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 1)? "active" : "" %>">
-        <%= link_to 'Last week', summary_path(:weeks_ago => 1), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 0)? "active" : "" %>">
-        <%= link_to 'This week', summary_path, :class => "page-link" %>
-      </li>
-    </ul>
-  </nav>
+
+  <%= render 'weekly_header', weeks_ago: @weeks_ago %>
 
   <table class="table table-bordered">
     <thead class="thead-light">
@@ -27,17 +13,17 @@
     <% @summary[:totals_by_type].each do |activity| %>
         <tr>
           <td><%= activity[0].titleize %></td>
-          <td><%= "#{activity[1] / 60}h #{activity[1] % 60}min" %></td>
+          <td><%= render_timespan(activity[1]) %></td>
         </tr>
     <% end %>
     <tr class="font-weight-bold">
       <td>All activities</td>
-      <td><span class="badge badge-secondary"><%= "#{@summary[:total] / 60}h #{@summary[:total] % 60}m" %></span></td>
+      <td><span class="badge badge-secondary"><%= render_timespan(@summary[:total]) %></span></td>
     </tr>
   </table>
 
   <nav class="nav justify-content-center">
-    <%= link_to 'Activities', activities_path, :class => "nav-item nav-link" %>
+    <%= link_to 'Activities', activities_path({ weeks_ago: @weeks_ago }), :class => "nav-item nav-link" %>
   </nav>
 
 </section>

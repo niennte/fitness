@@ -1,4 +1,6 @@
 class ActivitiesController < ApplicationController
+  include ActivitiesHelper
+
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :require_ownership, only: [:edit, :update, :destroy]
   before_action :require_authorization, only: [:index, :summary, :show]
@@ -7,10 +9,9 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     @weeks_ago = params[:weeks_ago].to_i || 0
-    date = Date.current.weeks_ago(@weeks_ago)
+    date = weeks_ago_to_date(@weeks_ago)
     @activities = Activity
-      .all
-      .ofWeek(date: date)
+      .asOfWeek(date: date)
       .forUser(current_user.id)
       .order('activity_date asc')
   end
@@ -19,7 +20,7 @@ class ActivitiesController < ApplicationController
   # GET /summary.json
   def summary
     @weeks_ago = params[:weeks_ago].to_i || 0
-    date = Date.current.weeks_ago(@weeks_ago)
+    date = weeks_ago_to_date(@weeks_ago)
     @summary = Activity.summary(user: current_user, date: date)
   end
 

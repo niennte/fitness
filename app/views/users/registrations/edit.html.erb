@@ -25,24 +25,28 @@
               </div>
           <% end %>
 
-          <div class="field form-group mt-3 row <%= (resource.errors.include? :name) ? 'has-errors alert alert-danger' : '' %>">
-            <%= f.label :name, :class => "col-sm-4" %><br />
+          <div class="field form-group mt-3 row <%= css_invalid(resource.errors.include? :name) %>">
+            <div class="col-sm-4">
+              <%= f.label :name %>
+            </div>
             <div class="col-sm-8">
-            <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
+              <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
             </div>
           </div>
 
-          <div class="field form-group row <%= (resource.errors.include? :email) ? 'has-errors alert alert-danger' : '' %>">
-            <%= f.label :email, :class => "col-sm-4" %><br />
+          <div class="field form-group row <%= css_invalid(resource.errors.include? :email)  %>">
+            <div class="col-sm-4">
+              <%= f.label :email %>
+            </div>
             <div class="col-sm-8">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
               <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
               <% end %>
             </div>
           </div>
 
-          <div class="field form-group row <%= (resource.errors.include? :password) ? 'has-errors alert alert-danger' : '' %>">
+          <div class="field form-group row <%= css_invalid(resource.errors.include? :password) %>">
             <div class="col-sm-4">
               <%= f.label :password, :class=> "mb-0" %>
               <% if @minimum_password_length %>
@@ -57,8 +61,10 @@
 
           </div>
 
-          <div class="field form-group row <%= (resource.errors.include? :password_confirmation) ? 'has-errors alert alert-danger' : '' %>">
-            <%= f.label :password_confirmation, :class => "col-sm-4" %>
+          <div class="field form-group row <%= css_invalid(resource.errors.include? :password_confirmation) %>">
+            <div class="col-sm-4">
+              <%= f.label :password_confirmation %>
+            </div>
             <div class="col-sm-8">
             <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
               <small class="form-text">Leave blank if you don't want to change it</small>
@@ -66,7 +72,7 @@
           </div>
 
           <hr>
-          <div class="field form-group text-center <%= (resource.errors.include? :current_password) ? 'has-errors alert alert-danger' : '' %>">
+          <div class="field form-group text-center <%= css_invalid(resource.errors.include? :current_password) %>">
             <%= f.label :current_password, :class => "font-weight-bold text-primary mb-0" %>
             <%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %>
             <small class="form-text mb-2 text-primary">We need your current password to confirm your changes</small>

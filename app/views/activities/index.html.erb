@@ -2,63 +2,12 @@
 <section class="py-5 container">
   <h1 class="text-center">Activities</h1>
 
-  <p class="text-center">
-    <%= Date.current.weeks_ago(@weeks_ago).beginning_of_week.strftime("%a, %d %b  %Y") %> - <%= Date.current.weeks_ago(@weeks_ago).end_of_week.strftime("%a, %d %b %Y") %>
-  </p>
+  <%= render 'weekly_header', weeks_ago: @weeks_ago %>
 
-  <nav aria-label="by week pagination" class="nav justify-content-center">
-    <ul class="pagination">
-      <li class="page-item <%= (@weeks_ago == 2)? "active" : "" %>">
-        <%= link_to '2 weeks ago', activities_path(:weeks_ago => 2), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 1)? "active" : "" %>">
-        <%= link_to 'Last week', activities_path(:weeks_ago => 1), :class => "page-link" %>
-      </li>
-      <li class="page-item <%= (@weeks_ago == 0)? "active" : "" %>">
-        <%= link_to 'This week', activities_path, :class => "page-link" %>
-      </li>
-    </ul>
-  </nav>
+  <%= render 'list', activities: @activities %>
 
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>Activity type</th>
-        <th>Activity date</th>
-        <th>Duration</th>
-        <th class="text-center">
-          <%= link_to 'New', new_activity_path, :class => "btn btn-secondary"  %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @activities.each do |activity| %>
-        <tr>
-          <td><%= activity.activity_type.titleize %></td>
-          <td><%= activity.activity_date.strftime("%a, %d %b %Y") %></td>
-          <td><%= "#{activity.hours}h #{activity.minutes}min" %></td>
-          <td>
-            <nav class="nav justify-content-around">
-
-              <%= link_to activity, :class => "item nav-link btn btn-light rounded-circle" do %>
-                <i class="fa fa-eye"></i>
-              <% end %>
-              <%= link_to edit_activity_path(activity), :class => "item nav-link  btn btn-light rounded-circle" do %>
-                <i class="fa fa-edit"></i>
-              <% end %>
-              <%= link_to activity, method: :delete, data: { confirm: 'Are you sure?' }, :class => "item nav-link btn btn-light rounded-circle" do %>
-                  <i class="fa fa-times"></i>
-                  <% end %>
-            </nav>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <nav aria-label="summary links" class="nav justify-content-center">
-    <%= link_to 'Summary', summary_path, :class => "nav-item nav-link" %>
+  <nav aria-label="summary-links" class="nav justify-content-center">
+    <%= link_to 'Summary', summary_path({ weeks_ago: @weeks_ago }), :class => "nav-item nav-link" %>
   </nav>
 
 </section>

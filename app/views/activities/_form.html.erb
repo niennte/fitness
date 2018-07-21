@@ -10,17 +10,17 @@
       </ul>
     </div>
   <% end %>
-  <div class="field form-group <%= (activity.errors.include? :activity_type) ? 'has-errors alert alert-danger' : '' %>">
+  <div class="field form-group <%= css_invalid(activity.errors.include? :activity_type) %>">
     <%= form.label :activity_type %>
     <%= form.select :activity_type, Activity.activity_types.keys.map {|activity_type| [activity_type.titleize,activity_type]} %>
   </div>
 
-  <div class="field form-group <%= (activity.errors.include? :activity_date) ? 'has-errors alert alert-danger' : '' %>">
+  <div class="field form-group <%= css_invalid(activity.errors.include? :activity_date) %>">
     <%= form.label :activity_date %>
     <%= form.date_select :activity_date %>
   </div>
 
-  <div class="field form-group duration <%= (activity.errors.include? :duration) ? 'has-errors alert alert-danger' : '' %>">
+  <div class="field form-group duration <%= css_invalid(activity.errors.include? :duration) %>">
     <%= form.label :hours %>
     <%= form.number_field :hours %>
     <%= form.label :minutes %>

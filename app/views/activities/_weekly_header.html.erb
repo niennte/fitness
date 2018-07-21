@@ -1,0 +1,17 @@
+<p class="text-center">
+  <%= render_week_title(weeks_ago) %>
+</p>
+
+<nav aria-label="by week pagination" class="nav justify-content-center">
+  <ul class="pagination">
+    <li class="page-item <%= css_active(@weeks_ago == 2) %>">
+      <%= link_to '2 weeks ago', { weeks_ago: 2 }, :class => "page-link" %>
+    </li>
+    <li class="page-item <%= css_active(@weeks_ago == 1) %>">
+      <%= link_to 'Last week', { weeks_ago: 1 }, :class => "page-link" %>
+    </li>
+    <li class="page-item <%= css_active(@weeks_ago == 0) %>">
+      <%= link_to 'This week', { weeks_ago: 0 }, :class => "page-link" %>
+    </li>
+  </ul>
+</nav>

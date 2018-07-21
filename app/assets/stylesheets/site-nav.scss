@@ -1,0 +1,8 @@
+.welcome .welcome,
+.summary .summary,
+.registrations .account,
+.registrations .signup,
+.registrations .signin,
+.activities.index .activities {
+  @extend .active;
+}

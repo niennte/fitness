@@ -27,7 +27,7 @@
             <% end %>
           <%= f.hidden_field :reset_password_token %>
 
-          <div class="field form-group <%= (resource.errors.include? :password) ? 'has-errors alert alert-danger' : '' %>">
+          <div class="field form-group <%= css_invalid(resource.errors.include? :password)  %>">
             <%= f.label :password, "New password" %>
             <% if @minimum_password_length %>
               <small class="form-text">(<%= @minimum_password_length %> characters minimum)</small>
@@ -35,7 +35,7 @@
             <%= f.password_field :password, autofocus: true, autocomplete: "off", :class => "form-control" %>
           </div>
 
-          <div class="field form-group <%= (resource.errors.include? :password_confirmation) ? 'has-errors alert alert-danger' : '' %>">
+          <div class="field form-group <%= css_invalid(resource.errors.include? :password_confirmation)  %>">
             <%= f.label :password_confirmation, "Confirm new password" %>
             <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
           </div>

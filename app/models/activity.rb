@@ -6,28 +6,42 @@ class Activity < ApplicationRecord
 
   enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
-  scope :ofWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date <= ?', date.end_of_week) }
+  scope :asOfWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date <= ?', date.end_of_week) }
+
   scope :forUser, -> (userId ) { where('user_id = ?', userId) }
 
-  validates :activity_type, inclusion: { in: activity_types,
-                                message: "%{value} is not a valid activity" }
+  validates :activity_type, inclusion: {
+      in: activity_types,
+      message: "%{value} is not a valid activity"
+  }
   validates :duration, numericality: {greater_than: 0, :message => 'needs to be at least 1 minute'}
   validate :activity_date_valid_range
 
   # user_for_summary is a stub
   # to communicate the parameter is required
-  def self.summary(user: user_for_summary, date: Date.current)
+  def self.summary_all(user: user_required_for_summary)
     {
-      total:
-        forUser(user)
-        .ofWeek(date: date)
-        .sum(:duration),
+      total: forUser(user).sum(:duration),
       totals_by_type:
         forUser(user)
-        .ofWeek(date: date)
         .group(:activity_type)
         .order('sum_duration desc')
         .sum(:duration)
+    }
+  end
+
+  def self.summary(user: user_required_for_weekly_summary, date: Date.current)
+    {
+      total:
+        forUser(user)
+          .asOfWeek(date: date)
+          .sum(:duration),
+      totals_by_type:
+        forUser(user)
+          .asOfWeek(date: date)
+          .group(:activity_type)
+          .order('sum_duration desc')
+          .sum(:duration)
     }
   end
 
@@ -39,9 +53,8 @@ class Activity < ApplicationRecord
     end
   end
 
-
   def duration_to_minutes
-    self.duration = hours.to_i*60 + minutes.to_i
+    self.duration = hours.to_i * 60 + minutes.to_i
   end
 
 
