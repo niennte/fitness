@@ -13,7 +13,7 @@
 
       <nav class="nav justify-content-center">
         <%= link_to 'Show', @activity, :class => "item nav-link border-right" %>
-        <%= link_to 'View All', activities_path, :class => "nav-item nav-link" %>
+        <%= link_to 'View All', activities_path(:weeks_ago => date_to_weeks_ago(@activity.activity_date)), :class => "nav-item nav-link" %>
         <%= link_to 'Delete', @activity, method: :delete, data: { confirm: 'Are you sure?' }, :class => "item nav-link border-left"%>
       </nav>
     </div>

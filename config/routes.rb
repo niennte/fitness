@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
   get '/summary', to: 'activities#summary'
+  get '/summary-all', to: 'activities#summary_all'
+  get '/list', to: 'activities#list'
 end
 
 

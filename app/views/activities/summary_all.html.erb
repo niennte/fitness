@@ -1,0 +1,17 @@
+<div id="notice" class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
+<section class="py-5 container position-relative">
+  <%= link_to 'All Time', summary_all_path, :class => "position-absolute auxiliary-link-right badge badge-primary" %>
+  <%= link_to 'Weekly', summary_path, :class => "position-absolute auxiliary-link-left badge badge-light" %>
+  <h1 class="text-center">Summary</h1>
+
+  <p class="text-center">
+    <%= "#{render_date(@summary[:range_start])} - #{render_date(@summary[:range_end])}" %>
+  </p>
+
+  <%= render 'summary', summary: @summary %>
+
+  <nav class="nav justify-content-center">
+    <%= link_to 'Activities', list_path, :class => "nav-item nav-link" %>
+  </nav>
+
+</section>

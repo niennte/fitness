@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
 
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :require_ownership, only: [:edit, :update, :destroy]
-  before_action :require_authorization, only: [:index, :summary, :show]
+  before_action :require_authorization, only: [:index, :list, :summary, :summary_all, :show]
 
   # GET /activities
   # GET /activities.json
@@ -16,12 +16,35 @@ class ActivitiesController < ApplicationController
       .order('activity_date asc')
   end
 
+  # GET /list
+  # GET /list.json
+  def list
+    @activities = Activity
+      .forUser(current_user.id)
+      .order('activity_date asc')
+    respond_to do |format|
+      format.html
+      format.json { render :index, status: :ok }
+    end
+  end
+
   # GET /summary
   # GET /summary.json
   def summary
     @weeks_ago = params[:weeks_ago].to_i || 0
     date = weeks_ago_to_date(@weeks_ago)
     @summary = Activity.summary(user: current_user, date: date)
+  end
+
+  # GET /summary-all
+  # GET /summary-all.json
+  def summary_all
+    @summary = Activity.summary_all(user: current_user)
+    # reuse summary json template
+    respond_to do |format|
+      format.html
+      format.json { render :summary, status: :ok }
+    end
   end
 
   # GET /activities/1

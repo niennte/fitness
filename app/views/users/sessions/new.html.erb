@@ -6,7 +6,7 @@
     <div class="card position-relative" style="width: 25rem;">
       <div class="card-body">
         <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-            <%= link_to "Sign up", new_registration_path(resource_name), :class => "card-link position-absolute form-auxiliary-link" %>
+            <%= link_to "Sign up", new_registration_path(resource_name), :class => "card-link position-absolute auxiliary-link" %>
         <% end -%>
         <h3 class="card-title text-center pb-2 text-primary">Sign in</h3>
         <hr>

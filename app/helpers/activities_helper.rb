@@ -24,4 +24,8 @@ module ActivitiesHelper
     Date.current.weeks_ago(weeks_ago)
   end
 
+  def date_to_weeks_ago(date)
+    (Date.current - date).to_i / 7
+  end
+
 end

@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <thead class="thead-light">
+  <th>Activity</th>
+  <th>Total per week</th>
+  </thead>
+  <% summary[:totals_by_type].each do |activity| %>
+      <tr>
+        <td><%= activity[0].titleize %></td>
+        <td><%= render_timespan(activity[1]) %></td>
+      </tr>
+  <% end %>
+  <tr class="font-weight-bold">
+    <td>All activities</td>
+    <td><span class="badge badge-secondary"><%= render_timespan(@summary[:total]) %></span></td>
+  </tr>
+</table>

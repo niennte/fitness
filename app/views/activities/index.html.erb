@@ -1,5 +1,7 @@
 <div id="notice" class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
-<section class="py-5 container">
+<section class="py-5 container position-relative">
+  <%= link_to 'All Time', list_path, :class => "position-absolute auxiliary-link-right badge badge-light" %>
+  <%= link_to 'Weekly', activities_path, :class => "position-absolute auxiliary-link-left badge badge-primary" %>
   <h1 class="text-center">Activities</h1>
 
   <%= render 'weekly_header', weeks_ago: @weeks_ago %>

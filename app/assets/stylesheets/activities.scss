@@ -6,10 +6,28 @@
   vertical-align: middle;
 }
 
-.table td:last-child{
+.table td:last-child {
   width: 250px;
+}
+
+.table td:first-child+td+td {
+  width: 100px;
 }
 
 .duration input[type=number] {
   width: 100px;
+}
+
+.activities {
+  .auxiliary-link-right,
+  .auxiliary-link-left {
+    margin-top: 21px;
+  }
+
+  .auxiliary-link-left {
+    left: 25px;
+  }
+  .auxiliary-link-right {
+    right: 25px;
+  }
 }

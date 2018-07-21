@@ -1,26 +1,12 @@
 <div id="notice" class="text-center <%= notice.present? ? 'alert alert-success' : ''%>" role="alert"><%= notice %></div>
-<section class="py-5 container">
-
+<section class="py-5 container position-relative">
+  <%= link_to 'All Time', summary_all_path, :class => "position-absolute auxiliary-link-right badge badge-light" %>
+  <%= link_to 'Weekly', summary_path, :class => "position-absolute auxiliary-link-left badge badge-primary" %>
   <h1 class="text-center">Summary</h1>
 
   <%= render 'weekly_header', weeks_ago: @weeks_ago %>
 
-  <table class="table table-bordered">
-    <thead class="thead-light">
-    <th>Activity</th>
-    <th>Total per week</th>
-    </thead>
-    <% @summary[:totals_by_type].each do |activity| %>
-        <tr>
-          <td><%= activity[0].titleize %></td>
-          <td><%= render_timespan(activity[1]) %></td>
-        </tr>
-    <% end %>
-    <tr class="font-weight-bold">
-      <td>All activities</td>
-      <td><span class="badge badge-secondary"><%= render_timespan(@summary[:total]) %></span></td>
-    </tr>
-  </table>
+  <%= render 'summary', summary: @summary %>
 
   <nav class="nav justify-content-center">
     <%= link_to 'Activities', activities_path({ weeks_ago: @weeks_ago }), :class => "nav-item nav-link" %>
