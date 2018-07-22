@@ -54,7 +54,7 @@ class ActivitiesController < ApplicationController
     # and available via login splash
     # so the auth error should only be raised
     # after the login if the user is wrong
-    raise ApplicationController::NotAuthorized unless @activity.user == current_user
+    require_ownership
   end
 
   # GET /activities/new
@@ -108,21 +108,23 @@ class ActivitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
 
   def require_authorization
-      redirect_to(user_session_path) unless user_signed_in?
+    redirect_to(user_session_path) unless user_signed_in?
   end
 
   def require_ownership
     raise ApplicationController::NotAuthorized unless @activity.user == current_user
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params.require(:activity).permit(:user_id, :activity_type, :activity_date, :hours, :minutes)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:user_id, :activity_type, :activity_date, :hours, :minutes)
+  end
+
 end
