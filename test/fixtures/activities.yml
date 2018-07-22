@@ -2,12 +2,12 @@
 
 one:
   user: one
-  activity_type: 1
+  activity_type: walking
   activity_date: 2018-07-11
-  duration: 1
+  duration: 30
 
 two:
-  user: two
-  activity_type: 1
+  user: one
+  activity_type: running
   activity_date: 2018-07-11
-  duration: 1
+  duration: 90
