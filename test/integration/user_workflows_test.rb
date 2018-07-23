@@ -8,8 +8,7 @@ class UserWorkflowsTest < ActionDispatch::IntegrationTest
     @user = users(:one)
   end
 
-  test 'user can sign in and gets redirected to original request' do
-
+  test 'user can sign in' do
     post user_session_path, params: { user: { email: @user.email, password: 'qwerty1' } }
     assert_response :redirect
   end
@@ -39,7 +38,7 @@ class UserWorkflowsTest < ActionDispatch::IntegrationTest
     get edit_activity_path(@user.activities.first)
     assert_response :success
     patch activity_path(@user.activities.first), params: { activity: { activity_type: 'pint_lifting'} }
-    assert_equal 'pint_lifting', @user.activities.first.activity_type
+    assert_equal :pint_lifting, @user.activities.first.activity_type
     assert_redirected_to activity_url(@user.activities.first)
     assert_redirected_to activity_url(Activity.first)
   end
@@ -51,8 +50,5 @@ class UserWorkflowsTest < ActionDispatch::IntegrationTest
       delete activity_url(@user.activities.first)
     end
   end
-
-
-
 
 end

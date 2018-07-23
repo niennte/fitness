@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
   def list
     @activities = Activity
       .forUser(current_user.id)
-      .order('activity_date asc')
+      .order('activity_date desc')
     respond_to do |format|
       format.html
       format.json { render :index, status: :ok }
