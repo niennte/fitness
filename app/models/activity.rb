@@ -12,7 +12,7 @@ class Activity < ApplicationRecord
 
   validates :activity_type, inclusion: {
       in: activity_types,
-      message: "%{value} is not a valid activity"
+      message: "Valid activity is required"
   }
   validates :duration, numericality: {greater_than: 0, :message => 'needs to be at least 1 minute'}
   validate :activity_date_valid_range
@@ -60,13 +60,13 @@ class Activity < ApplicationRecord
   private
 
   def activity_date_valid_range
-    if activity_date > Date.today
+    if activity_date.nil? || activity_date > Date.today
       errors.add(:activity_date, "can't be in the future")
     end
   end
 
   def duration_to_minutes
-    self.duration = hours.to_i * 60 + minutes.to_i
+    self.duration ||= hours.to_i * 60 + minutes.to_i
   end
 
 
