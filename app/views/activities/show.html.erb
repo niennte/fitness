@@ -15,7 +15,7 @@
         </li>
         <li class="list-group-item">
           <strong>Duration:</strong>
-          <%= "#{@activity.hours}h #{@activity.minutes}min" %>
+          <%= render_timespan(@activity.duration) %>
         </li>
       </ul>
 

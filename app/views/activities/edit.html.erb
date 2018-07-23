@@ -9,6 +9,8 @@
     <div class="card-body">
       <h3 class="card-title text-center pb-2">Editing Activity</h3>
 
+      <% @activity.hours = total_mins_to_partial_hrs(@activity.duration) %>
+      <% @activity.minutes = total_mins_to_partial_mins(@activity.duration) %>
       <%= render 'form', activity: @activity %>
 
       <nav class="nav justify-content-center">

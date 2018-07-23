@@ -17,31 +17,31 @@ class DomainLogicTest < ActiveSupport::TestCase
         user: user,
         activity_type: 'hiking',
         activity_date: range_start.yesterday, # out of range, Sunday
-        duration: 1000
+        minutes: 1000
       },
       {
         user: user,
         activity_type: 'hiking',
         activity_date: range_start, # Monday
-        duration: 1
+        minutes: 1
       },
       {
         user: user,
         activity_type: 'hiking',
         activity_date: range_start.tomorrow, # Tuesday
-        duration: 1
+        minutes: 1
       },
       {
         user: user,
         activity_type: 'walking',
         activity_date: range_end, # Sunday
-        duration: 1
+        minutes: 1
       },
       {
         user: user,
         activity_type: 'walking',
         activity_date: range_end.tomorrow, # out of range, Monday
-        duration: 1000
+        minutes: 1000
       }
     ]
 
@@ -65,7 +65,7 @@ class DomainLogicTest < ActiveSupport::TestCase
       total: (1 + 1 + 1 + 1000 + 1000), # sum all records' durations
       totals_by_type: {
         hiking: (1 + 1 + 1000), # sum all occurrences of "hiking"
-        walking: (1 + 1000) # sum all occurrences of "hiking"
+        walking: (1 + 1000) # sum all occurrences of "walking"
       },
       range_start: range_start.yesterday,
       range_end: range_end.tomorrow
