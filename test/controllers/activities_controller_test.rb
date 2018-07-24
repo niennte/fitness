@@ -133,10 +133,7 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
     patch activity_url(@activity), params: {
       activity:
         {
-          activity_date: "2018-07-01",
-          activity_type: "pint_lifting",
-          hours: 1,
-          minutes: 30
+          activity_type: "pint_lifting"
         }
     }, as: :json
     assert_response :success

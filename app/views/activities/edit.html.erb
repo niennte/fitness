@@ -8,11 +8,7 @@
   <div class="card" style="width: 25rem;">
     <div class="card-body">
       <h3 class="card-title text-center pb-2">Editing Activity</h3>
-
-      <% @activity.hours = total_mins_to_partial_hrs(@activity.duration) %>
-      <% @activity.minutes = total_mins_to_partial_mins(@activity.duration) %>
       <%= render 'form', activity: @activity %>
-
       <nav class="nav justify-content-center">
         <%= link_to 'Show', @activity, :class => "item nav-link border-right" %>
         <%= link_to 'View All', activities_path(:weeks_ago => date_to_weeks_ago(@activity.activity_date)), :class => "nav-item nav-link" %>

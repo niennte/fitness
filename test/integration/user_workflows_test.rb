@@ -38,9 +38,8 @@ class UserWorkflowsTest < ActionDispatch::IntegrationTest
     get edit_activity_path(@user.activities.first)
     assert_response :success
     patch activity_path(@user.activities.first), params: { activity: { activity_type: 'pint_lifting'} }
-    assert_equal :pint_lifting, @user.activities.first.activity_type
+    assert_equal 'pint_lifting', @user.activities.first.activity_type
     assert_redirected_to activity_url(@user.activities.first)
-    assert_redirected_to activity_url(Activity.first)
   end
 
   test 'after signing in, user can delete their activity' do
