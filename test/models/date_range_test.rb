@@ -23,5 +23,20 @@ class DateRangeTest < ActiveSupport::TestCase
 
   end
 
+  test 'date accurately converts to weeks ago' do
+    weeks_ago_set = (-1..2).to_a
+
+    weeks_ago_set.each do |weeks_ago|
+      date1 = Date.current.weeks_ago(weeks_ago).beginning_of_week
+      date2 = Date.current.weeks_ago(weeks_ago).end_of_week
+      dates = (date1..date2).to_a
+
+      dates.each do |date|
+        assert_equal(weeks_ago, DateRange.date_to_weeks_ago(date))
+      end
+
+    end
+  end
+
 end
 
