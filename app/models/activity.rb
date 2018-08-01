@@ -17,9 +17,17 @@ class Activity < ApplicationRecord
   validates :duration, numericality: {greater_than: 0, :message => 'needs to be at least 1 minute'}
   validate :activity_date_valid_range
 
-  # user_required is a stub
-  # to communicate the parameter is required
-  def self.summary_all(user: user_required)
+  def self.all_for_user(user: required)
+    forUser(user.id).order('activity_date desc')
+  end
+
+  def self.weekly_for_user(user: required, date: required)
+    asOfWeek(date: date)
+      .forUser(user.id)
+      .order('activity_date asc')
+  end
+
+  def self.summary_all(user: required)
     {
       user: user,
       total: forUser(user).sum(:duration),
@@ -37,9 +45,7 @@ class Activity < ApplicationRecord
     }
   end
 
-  # user_required is a stub
-  # to communicate the parameter is required
-  def self.summary(user: user_required, date: Date.current)
+  def self.summary(user: required, date: Date.current)
     {
       user: user,
       total:

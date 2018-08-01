@@ -5,7 +5,7 @@
   <h1 class="text-center">Summary</h1>
 
   <p class="text-center">
-    <%= "#{render_date(@summary[:range_start])} - #{render_date(@summary[:range_end])}" %>
+    <%= "#{render_date(@summary.range_start)} - #{render_date(@summary.range_end)}" %>
   </p>
 
   <%= render 'summary', summary: @summary %>

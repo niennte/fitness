@@ -3,14 +3,14 @@
   <th>Activity</th>
   <th>Total per week</th>
   </thead>
-  <% summary[:totals_by_type].each do |activity| %>
+  <% @summary.totals_by_type.each do |activity, duration| %>
       <tr>
-        <td><%= activity[0].titleize %></td>
-        <td><%= render_timespan(activity[1]) %></td>
+        <td><%= activity.to_s.titleize %></td>
+        <td><%= render_timespan(duration) %></td>
       </tr>
   <% end %>
   <tr class="font-weight-bold">
     <td>All activities</td>
-    <td><span class="badge badge-secondary"><%= render_timespan(@summary[:total]) %></span></td>
+    <td><span class="badge badge-secondary"><%= render_timespan(@summary.total) %></span></td>
   </tr>
 </table>

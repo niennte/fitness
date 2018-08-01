@@ -71,11 +71,13 @@ class DomainLogicTest < ActiveSupport::TestCase
       range_end: range_end.tomorrow
     }
 
-    summary = Activity.summary(user: user, date: date)
-    assert_equal( expected_summary, summary.deep_symbolize_keys)
+    activities = Activity.weekly_for_user(user: user, date: date)
+    summary = ActivitySummary.new(user: user, activities: activities)
+    assert_equal( expected_summary, summary.to_hash)
 
-    summary_all = Activity.summary_all(user: user)
-    assert_equal( expected_summary_all, summary_all.deep_symbolize_keys)
+    activities_all = Activity.all_for_user(user: user)
+    summary_all = ActivitySummary.new(user: user, activities: activities_all)
+    assert_equal( expected_summary_all, summary_all.to_hash)
 
   end
 

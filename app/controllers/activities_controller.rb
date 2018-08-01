@@ -10,18 +10,13 @@ class ActivitiesController < ApplicationController
   def index
     @weeks_ago = params[:weeks_ago].to_i || 0
     date = weeks_ago_to_date(@weeks_ago)
-    @activities = Activity
-      .asOfWeek(date: date)
-      .forUser(current_user.id)
-      .order('activity_date asc')
+    @activities = Activity.weekly_for_user(user: current_user, date: date)
   end
 
   # GET /list
   # GET /list.json
   def list
-    @activities = Activity
-      .forUser(current_user.id)
-      .order('activity_date desc')
+    @activities = Activity.all_for_user(user: current_user)
     respond_to do |format|
       format.html
       format.json { render :index, status: :ok }
@@ -33,13 +28,19 @@ class ActivitiesController < ApplicationController
   def summary
     @weeks_ago = params[:weeks_ago].to_i || 0
     date = weeks_ago_to_date(@weeks_ago)
-    @summary = Activity.summary(user: current_user, date: date)
+    @summary = ActivitySummary.new(
+      user: current_user,
+      activities: Activity.weekly_for_user(user: current_user, date: date)
+    )
   end
 
   # GET /summary-all
   # GET /summary-all.json
   def summary_all
-    @summary = Activity.summary_all(user: current_user)
+    @summary = ActivitySummary.new(
+      user: current_user,
+      activities: Activity.all_for_user(user: current_user)
+    )
     # reuse summary json template
     respond_to do |format|
       format.html
@@ -50,7 +51,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    # I want links to individual records bookmarkable
+    # links to individual records should be bookmarkable
     # and available via login splash
     # so the auth error should only be raised
     # after the login if the user is wrong
