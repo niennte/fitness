@@ -8,9 +8,9 @@ class DomainLogicTest < ActiveSupport::TestCase
     Activity.delete_all
     user = users(:one)
 
-    date = Date.current.weeks_ago(2)
-    range_start = date.beginning_of_week
-    range_end = date.end_of_week
+    date_range = DateRange.new.week_from_weeks_ago(2)
+    range_start = date_range.start_date
+    range_end = date_range.end_date
 
     activity_dataset = [
       {
@@ -50,7 +50,6 @@ class DomainLogicTest < ActiveSupport::TestCase
     end
 
     expected_summary = {
-      user: user,
       total: (1 + 1 + 1), # 3 in-range records 1 each
       totals_by_type: {
         hiking: (1 + 1), # 2 in-range occurrences of "hiking" 1 each
@@ -61,7 +60,6 @@ class DomainLogicTest < ActiveSupport::TestCase
     }
 
     expected_summary_all = {
-      user: user,
       total: (1 + 1 + 1 + 1000 + 1000), # sum all records' durations
       totals_by_type: {
         hiking: (1 + 1 + 1000), # sum all occurrences of "hiking"
@@ -71,12 +69,12 @@ class DomainLogicTest < ActiveSupport::TestCase
       range_end: range_end.tomorrow
     }
 
-    activities = Activity.weekly_for_user(user: user, date: date)
-    summary = ActivitySummary.new(user: user, activities: activities)
+    activities = Activity.in_range_for_user(user: user, date_range: date_range)
+    summary = ActivitySummary.new(activities: activities)
     assert_equal( expected_summary, summary.to_hash)
 
     activities_all = Activity.all_for_user(user: user)
-    summary_all = ActivitySummary.new(user: user, activities: activities_all)
+    summary_all = ActivitySummary.new(activities: activities_all)
     assert_equal( expected_summary_all, summary_all.to_hash)
 
   end

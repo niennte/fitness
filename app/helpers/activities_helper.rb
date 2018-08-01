@@ -16,24 +16,13 @@ module ActivitiesHelper
     date.strftime("%a, %d %b %Y")
   end
 
-  def beginning_of_week(weeks_ago)
-    weeks_ago_to_date(weeks_ago).beginning_of_week
-  end
-
-  def end_of_week(weeks_ago)
-    weeks_ago_to_date(weeks_ago).end_of_week
-  end
-
   def render_week_title(weeks_ago)
-    "#{render_date(beginning_of_week(weeks_ago))} - #{render_date(end_of_week(weeks_ago))}"
-  end
-
-  def weeks_ago_to_date(weeks_ago)
-    Date.current.weeks_ago(weeks_ago)
+    week = DateRange.new.week_from_weeks_ago(weeks_ago)
+    "#{render_date(week.start_date)} - #{render_date(week.end_date)}"
   end
 
   def date_to_weeks_ago(date)
-    (Date.current.end_of_week - date).to_i / 7
+    DateRange.date_to_weeks_ago(date)
   end
 
 end

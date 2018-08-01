@@ -1,8 +1,7 @@
 class ActivitySummary
-  attr_accessor :total, :totals_by_type, :user, :range_start, :range_end
+  attr_accessor :total, :totals_by_type, :range_start, :range_end
 
-  def initialize(user:, activities: nil)
-    @user = user
+  def initialize(activities: nil)
     @totals_by_type = Hash.new
     unless activities.nil? || activities.count == 0
       calculate_range(activities)

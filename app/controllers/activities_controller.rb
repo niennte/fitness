@@ -1,5 +1,4 @@
 class ActivitiesController < ApplicationController
-  include ActivitiesHelper
 
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :require_ownership, only: [:edit, :update, :destroy]
@@ -9,8 +8,8 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     @weeks_ago = params[:weeks_ago].to_i || 0
-    date = weeks_ago_to_date(@weeks_ago)
-    @activities = Activity.weekly_for_user(user: current_user, date: date)
+    date_range = DateRange.new.week_from_weeks_ago(@weeks_ago)
+    @activities = Activity.in_range_for_user(date_range: date_range, user: current_user)
   end
 
   # GET /list
@@ -27,10 +26,9 @@ class ActivitiesController < ApplicationController
   # GET /summary.json
   def summary
     @weeks_ago = params[:weeks_ago].to_i || 0
-    date = weeks_ago_to_date(@weeks_ago)
+    date_range = DateRange.new.week_from_weeks_ago(@weeks_ago)
     @summary = ActivitySummary.new(
-      user: current_user,
-      activities: Activity.weekly_for_user(user: current_user, date: date)
+      activities: Activity.in_range_for_user(user: current_user, date_range: date_range)
     )
   end
 
@@ -38,7 +36,6 @@ class ActivitiesController < ApplicationController
   # GET /summary-all.json
   def summary_all
     @summary = ActivitySummary.new(
-      user: current_user,
       activities: Activity.all_for_user(user: current_user)
     )
     # reuse summary json template

@@ -6,9 +6,9 @@ class Activity < ApplicationRecord
 
   enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
-  scope :asOfWeek, -> (date: Date.current) { where('activity_date >= ?', date.beginning_of_week).where('activity_date <= ?', date.end_of_week) }
+  scope :inRange, ->(date_range:){where('activity_date >= ?', date_range.start_date).where('activity_date <= ?', date_range.end_date)}
 
-  scope :forUser, -> (userId ) { where('user_id = ?', userId) }
+  scope :forUser, -> (userId) { where('user_id = ?', userId) }
 
   validates :activity_type, inclusion: {
       in: activity_types,
@@ -21,45 +21,43 @@ class Activity < ApplicationRecord
     forUser(user.id).order('activity_date desc')
   end
 
-  def self.weekly_for_user(user: required, date: required)
-    asOfWeek(date: date)
+  def self.in_range_for_user(user: required, date_range: required)
+    inRange(date_range: date_range)
       .forUser(user.id)
       .order('activity_date asc')
   end
 
   def self.summary_all(user: required)
     {
-      user: user,
-      total: forUser(user).sum(:duration),
-      totals_by_type:
+        total: forUser(user).sum(:duration),
+        totals_by_type:
         forUser(user)
           .group(:activity_type)
           .order('sum_duration desc')
           .sum(:duration),
-      range_start:
+        range_start:
         forUser(user)
           .minimum('activity_date'),
-      range_end:
+        range_end:
         forUser(user)
           .maximum('activity_date')
     }
   end
 
-  def self.summary(user: required, date: Date.current)
+  def self.summary(user: required, date_range: required)
     {
-      user: user,
-      total:
+        total:
         forUser(user)
-          .asOfWeek(date: date)
+          .asOfRange(date_range: date_range)
           .sum(:duration),
-      totals_by_type:
+        totals_by_type:
         forUser(user)
-          .asOfWeek(date: date)
+          .asOfRange(date_range: date_range)
           .group(:activity_type)
           .order('sum_duration desc')
           .sum(:duration),
-      range_start: date.beginning_of_week,
-      range_end: date.end_of_week
+        range_start: date_range.start_date,
+        range_end: date_range.end_date
     }
   end
 
