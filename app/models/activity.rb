@@ -6,10 +6,6 @@ class Activity < ApplicationRecord
 
   enum activity_type: [:running, :walking, :hiking, :swimming, :biking, :skating, :horse_back_riding, :resistance, :balance_ball, :trx, :pint_lifting ]
 
-  scope :inRange, ->(date_range:){where('activity_date >= ?', date_range.start_date).where('activity_date <= ?', date_range.end_date)}
-
-  scope :forUser, -> (userId) { where('user_id = ?', userId) }
-
   validates :activity_type, inclusion: {
       in: activity_types,
       message: "Valid activity is required"
@@ -27,41 +23,11 @@ class Activity < ApplicationRecord
       .order('activity_date asc')
   end
 
-  def self.summary_all(user: required)
-    {
-        total: forUser(user).sum(:duration),
-        totals_by_type:
-        forUser(user)
-          .group(:activity_type)
-          .order('sum_duration desc')
-          .sum(:duration),
-        range_start:
-        forUser(user)
-          .minimum('activity_date'),
-        range_end:
-        forUser(user)
-          .maximum('activity_date')
-    }
-  end
-
-  def self.summary(user: required, date_range: required)
-    {
-        total:
-        forUser(user)
-          .asOfRange(date_range: date_range)
-          .sum(:duration),
-        totals_by_type:
-        forUser(user)
-          .asOfRange(date_range: date_range)
-          .group(:activity_type)
-          .order('sum_duration desc')
-          .sum(:duration),
-        range_start: date_range.start_date,
-        range_end: date_range.end_date
-    }
-  end
-
   private
+
+  scope :inRange, ->(date_range:){where('activity_date >= ?', date_range.start_date).where('activity_date <= ?', date_range.end_date)}
+
+  scope :forUser, -> (userId) { where('user_id = ?', userId) }
 
   def activity_date_valid_range
     if activity_date.nil? || activity_date > Date.current

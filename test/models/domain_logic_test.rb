@@ -1,5 +1,14 @@
 require 'test_helper'
 
+module ObjectToHash
+  def to_hash
+    hash = {}
+    instance_variables.each {|var|
+      hash[var.to_s.delete("@").to_sym] = instance_variable_get(var) }
+    hash
+  end
+end
+
 class DomainLogicTest < ActiveSupport::TestCase
 
   fixtures :users, :activities
@@ -70,11 +79,11 @@ class DomainLogicTest < ActiveSupport::TestCase
     }
 
     activities = Activity.in_range_for_user(user: user, date_range: date_range)
-    summary = ActivitySummary.new(activities: activities)
+    summary = ActivitySummary.new(activities: activities).extend(ObjectToHash)
     assert_equal( expected_summary, summary.to_hash)
 
     activities_all = Activity.all_for_user(user: user)
-    summary_all = ActivitySummary.new(activities: activities_all)
+    summary_all = ActivitySummary.new(activities: activities_all).extend(ObjectToHash)
     assert_equal( expected_summary_all, summary_all.to_hash)
 
   end

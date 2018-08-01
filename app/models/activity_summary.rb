@@ -9,13 +9,6 @@ class ActivitySummary
     end
   end
 
-  def to_hash
-    hash = {}
-    instance_variables.each {|var|
-      hash[var.to_s.delete("@").to_sym] = instance_variable_get(var) }
-    hash
-  end
-
   def calculate_range(activities)
     @range_start = activities.min_by{ |activity| activity.activity_date }[:activity_date]
     @range_end = activities.max_by{ |activity| activity.activity_date }[:activity_date]
