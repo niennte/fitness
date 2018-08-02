@@ -4,11 +4,14 @@
     <h2 class="display-2"><span class="">Move and Groove</span></h2>
     <p class="lead bg-secondary d-inline-block">
       <%= link_to 'Sign up free', new_user_registration_path, :class => "btn btn-primary btn-lg" %>
-      <span class="px-3 text-dark">to start tracking you exercise.</span>
+      <span class="px-3 text-dark">to start
+        <%= link_to ' tracking you exercise', about_path, :class => "text-dark" %>
+        .
+      </span>
     </p>
     <hr class="my-4">
     <p>
-      <span class="">In case anybody is wondering, the time is now: <%= Time.now %></span>
+      <span class="">Start today to boost your motivation and gain insight into your fitness habits.</span>
     </p>
   </section>
 </div>

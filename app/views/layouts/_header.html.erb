@@ -26,6 +26,11 @@
                 <%= content_tag :span, "(current)", :class => "sr-only" %>
             <% end %>
           </li>
+          <li class="nav-item pr-lg-5 about">
+            <%= link_to about_path, :class => "nav-link text-expanded" do %>
+                <%= content_tag :span, "About" %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
       <ul class="navbar-nav ml-auto">

@@ -11,8 +11,14 @@
       </div>
       <div class="col-12 col-md-7 mt-5 mt-md-4 text-md-center">
         <h4>
-          <%= link_to 'Welcome', root_path %>
-          <%= link_to 'About', root_path %>
+          <ul class="nav">
+            <li class="nav-item pr-lg-5 welcome">
+          <%= link_to 'Welcome', root_path, :class => "nav-link welcome" %>
+            </li>
+            <li class="nav-item pr-lg-5 about">
+          <%= link_to 'About', about_path, :class => "nav-link about" %>
+            </li>
+          </ul>
         </h4>
       </div>
 

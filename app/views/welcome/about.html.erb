@@ -1,0 +1,43 @@
+<div class="py-5 container d-flex justify-content-start">
+  <section>
+  <h1 class="text-center">How it works:</h1>
+
+    <article class="mt-5" style="max-width: 35rem;">
+      <h4 class="lead bg-secondary mb-0 p-2">
+        <span class="badge badge-primary">Step 1:</span> Sign up for a free account:</h4>
+
+      <%= image_tag("signup.png", {:class => 'img-fluid'}) %>
+
+    </article>
+
+    <article class="mt-5" style="max-width: 35rem;">
+      <h4 class="lead bg-secondary mb-0 p-2">
+        <span class="badge badge-primary">Step 2:</span> Start tracking your fitness activities:</h4>
+
+      <%= image_tag("new.png", {:class => 'img-fluid'}) %>
+
+    </article>
+
+    <article class="mt-5" style="max-width: 35rem;">
+      <h4 class="lead bg-secondary mb-0 p-2">
+        <span class="badge badge-primary">Step 3:</span> Build regular habits over time:</h4>
+
+      <%= image_tag("list.png", {:class => 'img-fluid'}) %>
+
+    </article>
+
+    <article class="mt-5" style="max-width: 35rem;">
+      <h4 class="lead bg-secondary mb-0 p-2">
+        <span class="badge badge-primary">Step 4:</span> Reward yourself with comparative summaries of your accomplishments on record:</h4>
+
+      <%= image_tag("summary.png", {:class => 'img-fluid'}) %>
+
+    </article>
+
+    <nav aria-label="auxiliary-links" class="nav justify-content-center mt-5">
+      <%= link_to 'Let\'s get started!', new_user_registration_path, :class => "nav-item nav-link btn btn-primary btn-large" %>
+    </nav>
+
+
+  </section>
+</div>

@@ -1,4 +1,5 @@
-.welcome .welcome,
+.welcome.index .welcome,
+.welcome.about .about,
 .summary .summary,
 .summary_all .summary,
 .registrations .account,
@@ -6,5 +7,6 @@
 .registrations .signin,
 .activities.list .activities,
 .activities.index .activities {
+  color: $neon-fuchsia;
   @extend .active;
 }

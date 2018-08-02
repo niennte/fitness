@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :store_location
 
   def store_location
-    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/ || request.fullpath =~ /\A\/\z/
+    session[:previous_url] = request.fullpath unless
+        request.fullpath =~ /\/users/ || request.fullpath =~ /\/about/ || request.fullpath =~ /\A\/\z/
   end
 
   # redirect user to the originally requested page after sign in

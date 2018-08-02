@@ -1,13 +1,12 @@
 
 // Hack to remove shuttestock comp writing from the mock-up
 main {
-  padding-bottom: 100px;
+  padding-bottom: 250px;
 }
 footer.footer {
-  margin-top: -100px;
+  margin-top: -250px;
   position: relative;
 }
-
 
 // Add background overlays
 main {
@@ -52,6 +51,7 @@ main::after {
     background-size: cover;
     background-position: center 30%;
   }
+
 }
 
 
